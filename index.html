@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NoteIT</title>
+    <title>NoteIt</title>
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/index.js" defer></script>
   </head>
@@ -13,15 +13,24 @@
         <img class="app-icon" src="./src/assets/AppIcon.png"/>
         <h2>NoteIt</h2>
       </div>
+      <form class="search-bar">
+        <img class="search-icon" src="./src/assets/SearchIcon.png"/>
         <input
-          class="search-bar"
+          class="search-input"
           type="text"
-          class="new-note-input"
           placeholder="Search notes..."
         />
-      <button type="submit" class="add-note-button">Add note</button>
+      </form>
+      <button type="submit" class="add-note-button">Add New</button>
       <ul class="notes-list">
-        <li>new note</li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
+        <li><div class="note">note</div></li>
       </ul>
     </div>
   </body>

@@ -9,10 +9,11 @@ body {
 }
 
 .app-name-container {
-    width: 100%;
+    width: 40%;
     display: flex;
     justify-content: flex-start;
     gap: 8px;
+    margin-bottom: 32px;
 }
 
 .app-icon {
@@ -38,6 +39,20 @@ body {
     border: 0px;
     background-color: #EEEFF0;
     padding: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-icon {
+    height: 16px;
+}
+
+.search-input {
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 
 .search-bar:hover {
@@ -54,7 +69,7 @@ background-color: #DCDEE0;
     height: 40px;
     border-radius: 12px;
     border: 0;
-    margin: 10px;
+    margin-bottom: 16px;
     color: #FFFFFF;
     font-weight: bold;
 }
@@ -65,4 +80,33 @@ background-color: #DCDEE0;
 
 .add-note-button:focus {
     background-color: #5B2F87;
+}
+
+.notes-list {
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    list-style-type: none;
+    gap: 16px;
+}
+
+.notes-list::-webkit-scrollbar {
+    display: none;
+  }
+
+.notes-list li {
+    flex: 0 1;
+    display: flex;
+    margin-top: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+
+.note {
+    width: 40%;
+    height: 112px;
+    padding: 15px;
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 1px 1px 10px #EEEFF0;
 }
