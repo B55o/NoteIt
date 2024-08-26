@@ -7,30 +7,98 @@
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/index.js" defer></script>
   </head>
+
   <body>
     <div class="container">
       <div class="app-name-container">
-        <img class="app-icon" src="./src/assets/AppIcon.png"/>
+        <img class="app-icon" src="./src/assets/AppIcon.png" />
         <h2>NoteIt</h2>
       </div>
       <form class="search-bar">
-        <img class="search-icon" src="./src/assets/SearchIcon.png"/>
-        <input
-          class="search-input"
-          type="text"
-          placeholder="Search notes..."
-        />
+        <img class="search-icon" src="./src/assets/SearchIcon.png" />
+        <input class="search-input" type="text" placeholder="Search notes..." />
       </form>
       <button type="submit" class="add-note-button">Add New</button>
+      <div class="add-new-note-container">
+        <div class="add-new-note-header">
+          <span>Add new note</span><button class="text-button">cancel</button>
+        </div>
+        <input class="new-note-title" placeholder="Untitled note" />
+        <textarea
+          class="new-note-description"
+          placeholder="Your note"
+        ></textarea>
+      </div>
       <ul class="notes-list">
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
-        <li><div class="note">note</div></li>
+        <li>
+          <div class="note">
+            <div class="note-main">
+              <span class="note-title"> Note title </span>
+              <div class="note-button-bar">
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/EditIcon.png"
+                  />
+                </button>
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/DeleteIcon.png"
+                  />
+                </button>
+              </div>
+            </div>
+            <span class="note-description"> Note description</span>
+            <span class="note-date"> Note date</span>
+          </div>
+        </li>
+        <li>
+          <div class="note">
+            <div class="note-main">
+              <span class="note-title"> Note title </span>
+              <div class="note-button-bar">
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/EditIcon.png"
+                  />
+                </button>
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/DeleteIcon.png"
+                  />
+                </button>
+              </div>
+            </div>
+            <span class="note-description"> Note description</span>
+            <span class="note-date"> Note date</span>
+          </div>
+        </li>
+        <li>
+          <div class="note">
+            <div class="note-main">
+              <span class="note-title"> Note title </span>
+              <div class="note-button-bar">
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/EditIcon.png"
+                  />
+                </button>
+                <button class="note-action-button">
+                  <image
+                    class="action-button-icon"
+                    src="./src/assets/DeleteIcon.png"
+                  />
+                </button>
+              </div>
+            </div>
+            <span class="note-description"> Note description</span>
+            <span class="note-date"> Note date</span>
+          </div>
+        </li>
       </ul>
     </div>
   </body>
