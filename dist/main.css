@@ -8,7 +8,13 @@ body {
   font-family: sans-serif;
 }
 
-span, h1, h2, h4, h5, p, textarea {
+span,
+h1,
+h2,
+h4,
+h5,
+p,
+textarea {
   font-family: "Inter", sans-serif;
 }
 
@@ -83,8 +89,11 @@ span, h1, h2, h4, h5, p, textarea {
   outline: none;
 }
 
-.add-note-button {
-  width: 40%;
+#add-note-section-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   background-color: #6b3c9b;
   min-height: 40px;
   border-radius: 12px;
@@ -95,13 +104,13 @@ span, h1, h2, h4, h5, p, textarea {
   cursor: pointer;
 }
 
-.add-note-button:hover,
-.popup-delete-button:hover {
+.add-note-section-toggle:hover,
+.primary-button:hover {
   background-color: #844dba;
 }
 
-.add-note-button:focus,
-.popup-delete-button:focus {
+.add-note-section-toggle:focus,
+.primary-button:focus {
   background-color: #5b2f87;
 }
 
@@ -177,17 +186,12 @@ span, h1, h2, h4, h5, p, textarea {
 .note-description {
   color: #3b3c3e;
   font-size: 14px;
+  overflow: break-word;
 }
 
 .note-date {
   color: #5b5c5e;
   font-size: 12px;
-}
-
-.note-delete-popup {
-  z-index: -1;
-  background-color: #0f75b8;
-  height: 100px;
 }
 
 /* here */
@@ -196,9 +200,9 @@ span, h1, h2, h4, h5, p, textarea {
   position: fixed;
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   transition: opacity 500ms;
   visibility: hidden;
@@ -211,12 +215,11 @@ span, h1, h2, h4, h5, p, textarea {
 }
 
 .popup {
-  margin-top: 50px auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  background: #fff;
+  background-color: #ffffff;
   border-radius: 12px;
   width: 25%;
   height: 20%;
@@ -230,23 +233,24 @@ span, h1, h2, h4, h5, p, textarea {
 
 .popup h2 {
   margin-top: 0;
-  color: #333;
 }
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
+
+.popup {
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  width: 25%;
+  height: 15%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-.popup .close:hover {
-  color: #505050;
-}
+
 .popup .content {
-  max-height: 30%;
+  max-height: 50%;
   overflow: auto;
 }
 
@@ -256,37 +260,53 @@ span, h1, h2, h4, h5, p, textarea {
   justify-content: space-between;
 }
 
-.popup-cancel-button,
-.popup-delete-button {
+.button {
   text-decoration: none;
   border: 1px solid #000000;
   border-radius: 12px;
-  background-color: #ffffff;
   height: 40px;
-  max-width: 140px;
   width: 40%;
   padding: 5px 10px 5px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000000;
+  cursor: pointer;
 }
 
-.popup-delete-button {
+.primary-button {
   background-color: #6b3c9b;
   color: #ffffff;
+  border: none;
+}
+
+.add-note-toggle {
+    width: 100%;
+}
+
+.secondary-button {
+  background-color: #ffffff;
+  color: #000000;
 }
 /* here */
 
-.add-new-note-container {
+.new-note-actions-container {
+  height: auto;
   width: 40%;
-  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.add-new-note-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   padding: 10px;
   gap: 12px;
   box-shadow: 0 -4px 6px -2px #eeeff0, 0 4px 6px -2px #eeeff0;
+  transition: all 1s ease-in-out;
+  display: none;
 }
 
 .add-new-note-header {
@@ -310,24 +330,32 @@ span, h1, h2, h4, h5, p, textarea {
   box-sizing: border-box;
   resize: vertical;
   width: 100%;
-  max-height: 100%;
   min-height: 120px;
   border-radius: 12px;
   border: none;
   background-color: #eeeff0;
   overflow: hidden;
   padding: 10px;
-  letter-spacing: normal;
   font-size: 16px;
 }
+.new-note-bottom-action {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .new-note-add {
+    width: 15%;
+
+  }
 
 .empty-notes-list-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
-  margin: 40px 0px 20px 0px;
-  height: 100%;
+  margin: 20px 0px 0px 0px;
+  min-height: 310px;
 }
 
 .info-icon-container {
@@ -355,6 +383,8 @@ span, h1, h2, h4, h5, p, textarea {
   padding: 8px 16px 8px 16px;
   border: 1px solid #bcbcbd;
   background-color: #ffffff;
+  text-decoration: none;
+  color: #000000;
 }
 
 .add-first-note:hover,
