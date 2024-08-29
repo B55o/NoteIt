@@ -1,6 +1,6 @@
 // helpers
 
-function getElemetById(id: string): HTMLElement {
+function getElementById(id: string): HTMLElement {
   const element = document.getElementById(id);
   if (!element) {
     throw new Error(`Element with ID "${id}" not found.`);
@@ -21,6 +21,7 @@ function formatDate(date: Date) {
 // interfaces
 
 interface INote {
+  id: string;
   title: string;
   description: string;
   date: string;
@@ -32,17 +33,46 @@ interface INote {
 
 const todayDateTemp = new Date();
 const todayDateFormated = formatDate(todayDateTemp);
-const notes: INote[] = [];
+var notes: INote[] = [];
 
 //----------
 
+// fuction on page loaded
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderNotesList();
+  updateNoNotesDisplay();
+});
+
+//----------
+
+// HTML elements getters
+
+const emptyNotesContainer = getElementById("empty-notes-list-container");
+const addNoteContainer = getElementById("add-new-note-container");
+const notesList = getElementById("notes-list") as HTMLUListElement;
+
+// -- new note -> inputs --
+const title = getElementById("new-note-title") as HTMLInputElement;
+const description = getElementById("new-note-description") as HTMLInputElement;
+
+const noNotesContainer = getElementById(
+  "empty-notes-list-container"
+) as HTMLElement;
+const newNotesContainer = getElementById("add-note-button") as HTMLElement;
+
+//---------------------
+
 // functions
 function firstNoteAdd() {
-  const emptyNotesContainer = getElemetById("empty-notes-list-container");
-  const addNoteContainer = getElemetById("add-new-note-container");
-
   emptyNotesContainer.style.display = "none";
   addNoteContainer.style.display = "flex";
+}
+
+function notesLengthChecker() {
+    emptyNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
+    newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
+    newNotesContainer.style.visibility = notes.length === 0 ? "hidden": "visible";
 }
 
 function toggleVisibility(
@@ -50,8 +80,8 @@ function toggleVisibility(
   buttonId: string,
   shouldShowContainer: boolean
 ) {
-  const container = getElemetById(containerId);
-  const button = getElemetById(buttonId);
+  const container = getElementById(containerId);
+  const button = getElementById(buttonId);
 
   container.style.display = shouldShowContainer ? "flex" : "none";
   button.style.display = shouldShowContainer ? "none" : "flex";
@@ -63,15 +93,15 @@ function showNewNoteContainer() {
 
 function hideNewNoteContainer() {
   toggleVisibility("add-new-note-container", "add-note-button", false);
+  notesLengthChecker();
 }
 
 function renderNotesList() {
-  const notesList = document.getElementById("notes-list") as HTMLUListElement;
   notesList.innerHTML = "";
 
   notes.forEach((note: INote) => {
     const listItem = document.createElement("li");
-    listItem.id = note.title + notes.length;
+    listItem.id = note.id;
     listItem.innerHTML = `
         <div class="note">
           <div class="note-main">
@@ -80,7 +110,7 @@ function renderNotesList() {
               <button class="note-action-button">
                 <img class="action-button-icon" src="./src/assets/EditIcon.png" alt="Edit"/>
               </button>
-              <button class="note-action-button">
+              <button class="note-action-button" onClick="handleNoteDelete('${listItem.id}')">
                 <img class="action-button-icon" src="./src/assets/DeleteIcon.png" alt="Delete"/>
               </button>
             </div>
@@ -95,23 +125,20 @@ function renderNotesList() {
 }
 
 function resetNewNoteInput() {
-  const title = getElemetById("new-note-title") as HTMLInputElement;
-  const description = getElemetById("new-note-description") as HTMLInputElement;
-
   title.value = "";
   description.value = "";
 }
 
 function addNote() {
-  const title = getElemetById("new-note-title") as HTMLInputElement;
-  const description = getElemetById("new-note-description") as HTMLInputElement;
   const newNote: INote = {
+    id: title.value + notes.length,
     title: title.value,
     description: description.value,
     date: todayDateFormated,
   };
 
   notes.push(newNote);
+  notesLengthChecker();
   hideNewNoteContainer();
   renderNotesList();
   resetNewNoteInput();
@@ -119,18 +146,24 @@ function addNote() {
 }
 
 function updateNoNotesDisplay() {
-  const noNotesContainer = getElemetById(
-    "empty-notes-list-container"
-  ) as HTMLElement;
-  const newNotesContainer = getElemetById("add-note-button") as HTMLElement;
-
   noNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
   newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderNotesList();
-  updateNoNotesDisplay();
-});
+function deleteNote(id: string): INote[] {
+  const noteToDelete: INote | undefined = notes.find((n: INote) => n.id === id);
+  const updatedNotes: INote[] = noteToDelete
+    ? notes.filter((n: INote) => n.id !== id)
+    : notes;
 
+  return updatedNotes;
+}
+
+function handleNoteDelete(id: string) {
+  notes = deleteNote(id);
+
+  notesLengthChecker();
+  hideNewNoteContainer();
+  renderNotesList();
+}
 // ------------
