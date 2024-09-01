@@ -19,6 +19,7 @@ function formatDate(date) {
 const todayDateTemp = new Date();
 const todayDateFormated = formatDate(todayDateTemp);
 var notes = [];
+var filteredNotes = [];
 //----------
 // fuction on page loaded
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,10 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNoNotesDisplay();
 });
 //----------
-// HTML elements getters
+// Global used HTML elements getters
 const emptyNotesContainer = getElementById("empty-notes-list-container");
 const addNoteContainer = getElementById("add-new-note-container");
 const notesList = getElementById("notes-list");
+const notesLiArray = notesList.getElementsByTagName("li");
 // -- new note -> inputs --
 const title = getElementById("new-note-title");
 const description = getElementById("new-note-description");
@@ -44,7 +46,8 @@ function firstNoteAdd() {
 function notesLengthChecker() {
     emptyNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
     newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
-    newNotesContainer.style.visibility = notes.length === 0 ? "hidden" : "visible";
+    newNotesContainer.style.visibility =
+        notes.length === 0 ? "hidden" : "visible";
 }
 function toggleVisibility(containerId, buttonId, shouldShowContainer) {
     const container = getElementById(containerId);
@@ -67,7 +70,7 @@ function renderNotesList() {
         listItem.innerHTML = `
         <div class="note">
           <div class="note-main">
-            <span class="note-title">${note.title}</span>
+            <span id="note-title" class="note-title">${note.title}</span>
             <div class="note-button-bar">
               <button class="note-action-button">
                 <img class="action-button-icon" src="./src/assets/EditIcon.png" alt="Edit"/>
@@ -118,5 +121,14 @@ function handleNoteDelete(id) {
     notesLengthChecker();
     hideNewNoteContainer();
     renderNotesList();
+}
+function filterNotes() {
+    const searchPhrase = getElementById("search-input");
+    for (let i = 0; i < notesLiArray.length; i++) {
+        const noteTitleElement = notesLiArray[i].getElementsByClassName("note-title")[0];
+        const noteTitleValue = noteTitleElement.textContent;
+        notesLiArray[i].style.display =
+            noteTitleValue.indexOf(searchPhrase.value) > -1 ? "" : "none";
+    }
 }
 // ------------
