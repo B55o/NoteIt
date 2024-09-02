@@ -1,66 +1,32 @@
-"use strict";
-// helpers
-function getElementById(id) {
-    const element = document.getElementById(id);
-    if (!element) {
-        throw new Error(`Element with ID "${id}" not found.`);
-    }
-    return element;
-}
-function formatDate(date) {
-    const finalOptions = {
-        month: "long",
-        day: "numeric",
-    };
-    return date.toLocaleDateString("en-US", finalOptions);
-}
-//-----------
-// variables
+import { deleteNote } from "./code/functions/deleteNote.js";
+import { hideNewNoteContainer } from "./code/functions/hideNewNoteContainer.js";
+import { notesLengthChecker } from "./code/functions/notesLengthChecker.js";
+import { resetNewNoteInput } from "./code/functions/resetInput.js";
+import { toggleVisibility } from "./code/functions/toggleVisibility.js";
+import { updateNoNotesDisplay } from "./code/functions/updateNotesDisplay.js";
+import { formatDate } from "./code/helpers/formatDate.js";
+import { getElementById } from "./code/helpers/getElementById.js";
+import { emptyNotesContainer, addNoteContainer, notesList, title, description, notesLiArray, } from "./pageContent/elements.getters.js";
+// global variables
+//TODO: replace with object handled state management system, update/move methods that should be included in the state object
 const todayDateTemp = new Date();
 const todayDateFormated = formatDate(todayDateTemp);
 var notes = [];
-var filteredNotes = [];
 //----------
 // fuction on page loaded
 document.addEventListener("DOMContentLoaded", () => {
     renderNotesList();
-    updateNoNotesDisplay();
+    updateNoNotesDisplay(notes);
 });
 //----------
-// Global used HTML elements getters
-const emptyNotesContainer = getElementById("empty-notes-list-container");
-const addNoteContainer = getElementById("add-new-note-container");
-const notesList = getElementById("notes-list");
-const notesLiArray = notesList.getElementsByTagName("li");
-// -- new note -> inputs --
-const title = getElementById("new-note-title");
-const description = getElementById("new-note-description");
-const noNotesContainer = getElementById("empty-notes-list-container");
-const newNotesContainer = getElementById("add-note-button");
-//---------------------
 // functions
+//TODO: add event listeners
 function firstNoteAdd() {
     emptyNotesContainer.style.display = "none";
     addNoteContainer.style.display = "flex";
 }
-function notesLengthChecker() {
-    emptyNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
-    newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
-    newNotesContainer.style.visibility =
-        notes.length === 0 ? "hidden" : "visible";
-}
-function toggleVisibility(containerId, buttonId, shouldShowContainer) {
-    const container = getElementById(containerId);
-    const button = getElementById(buttonId);
-    container.style.display = shouldShowContainer ? "flex" : "none";
-    button.style.display = shouldShowContainer ? "none" : "flex";
-}
 function showNewNoteContainer() {
     toggleVisibility("add-new-note-container", "add-note-button", true);
-}
-function hideNewNoteContainer() {
-    toggleVisibility("add-new-note-container", "add-note-button", false);
-    notesLengthChecker();
 }
 function renderNotesList() {
     notesList.innerHTML = "";
@@ -87,10 +53,6 @@ function renderNotesList() {
         notesList.appendChild(listItem);
     });
 }
-function resetNewNoteInput() {
-    title.value = "";
-    description.value = "";
-}
 function addNote() {
     const newNote = {
         id: title.value + notes.length,
@@ -99,27 +61,16 @@ function addNote() {
         date: todayDateFormated,
     };
     notes.push(newNote);
-    notesLengthChecker();
-    hideNewNoteContainer();
+    notesLengthChecker(notes);
+    hideNewNoteContainer(notes);
     renderNotesList();
     resetNewNoteInput();
-    updateNoNotesDisplay();
-}
-function updateNoNotesDisplay() {
-    noNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
-    newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
-}
-function deleteNote(id) {
-    const noteToDelete = notes.find((n) => n.id === id);
-    const updatedNotes = noteToDelete
-        ? notes.filter((n) => n.id !== id)
-        : notes;
-    return updatedNotes;
+    updateNoNotesDisplay(notes);
 }
 function handleNoteDelete(id) {
-    notes = deleteNote(id);
-    notesLengthChecker();
-    hideNewNoteContainer();
+    notes = deleteNote(id, notes);
+    notesLengthChecker(notes);
+    hideNewNoteContainer(notes);
     renderNotesList();
 }
 function filterNotes() {

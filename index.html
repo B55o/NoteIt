@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NoteIt</title>
     <link rel="stylesheet" href="./dist/main.css" />
-    <script src="./dist/index.js" defer></script>
+    <script type="module" src="./dist/index.js" defer></script>
   </head>
 
   <body>
@@ -16,7 +16,13 @@
       </div>
       <form class="search-bar">
         <img class="search-icon" src="./src/assets/SearchIcon.png" />
-        <input id="search-input" class="search-input" type="text" placeholder="Search notes..." onkeyup="filterNotes()"/>
+        <input
+          id="search-input"
+          class="search-input"
+          type="text"
+          placeholder="Search notes..."
+          onkeyup="filterNotes()"
+        />
       </form>
       <div id="empty-notes-list-container" class="empty-notes-list-container">
         <div class="info-icon-container">
@@ -24,10 +30,7 @@
         </div>
         <h4>No notes yet</h4>
         <h5>Add note to keep track of your learnings.</h5>
-        <button 
-        class="add-first-note" 
-        onClick="firstNoteAdd()"
-        >
+        <button class="add-first-note" onclick="firstNoteAdd()">
           <image class="add-note-icon" src="./src/assets/AppIcon.png" /><span
             >Add note</span
           >
