@@ -21,7 +21,6 @@
           class="search-input"
           type="text"
           placeholder="Search notes..."
-          onkeyup="filterNotes()"
         />
       </form>
       <div id="empty-notes-list-container" class="empty-notes-list-container">
@@ -30,7 +29,7 @@
         </div>
         <h4>No notes yet</h4>
         <h5>Add note to keep track of your learnings.</h5>
-        <button class="add-first-note" onclick="firstNoteAdd()">
+        <button id="add-first-note" class="add-first-note">
           <image class="add-note-icon" src="./src/assets/AppIcon.png" /><span
             >Add note</span
           >
@@ -38,21 +37,16 @@
       </div>
       <div id="new-note-actions-container" class="new-note-actions-container">
         <button
-          id="add-note-button"
+          id="show-new-note-container-button"
           type="submit"
           class="button primary-button add-note-toggle"
-          onclick="showNewNoteContainer()"
         >
           Add New
         </button>
         <div id="add-new-note-container" class="add-new-note-container">
           <div class="add-new-note-header">
             <span>Add new note</span>
-            <button
-              id="hide-new-note-container"
-              class="text-button"
-              onclick="hideNewNoteContainer()"
-            >
+            <button id="hide-new-note-container" class="text-button">
               cancel
             </button>
           </div>
@@ -68,9 +62,8 @@
           ></textarea>
           <div class="new-note-bottom-action">
             <button
-              id="new-note-add"
+              id="add-new-note"
               class="button primary-button new-note-add"
-              onclick="addNote()"
             >
               Add
             </button>

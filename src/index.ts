@@ -1,19 +1,22 @@
 import { deleteNote } from "./code/functions/deleteNote.js";
-import { hideNewNoteContainer } from "./code/functions/hideNewNoteContainer.js";
+import { firstNoteAdd } from "./code/functions/firstNoteAdd.js";
+import { newNoteContainerDisplay } from "./code/functions/NewNoteContainerDisplay.js";
 import { notesLengthChecker } from "./code/functions/notesLengthChecker.js";
 import { resetNewNoteInput } from "./code/functions/resetInput.js";
-import { toggleVisibility } from "./code/functions/toggleVisibility.js";
 import { updateNoNotesDisplay } from "./code/functions/updateNotesDisplay.js";
 import { formatDate } from "./code/helpers/formatDate.js";
-import { getElementById } from "./code/helpers/getElementById.js";
 import { INote } from "./models/INote.model.js";
 import {
-  emptyNotesContainer,
-  addNoteContainer,
   notesList,
   title,
   description,
   notesLiArray,
+  addFirstNoteButton,
+  showNewNoteContainerButton,
+  hideNewNoteContainerButton,
+  addNewNoteButton,
+  searchPhrase,
+  // noteDeleteButton,
 } from "./pageContent/elements.getters.js";
 
 // global variables
@@ -34,17 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //----------
 
-// functions
-//TODO: add event listeners
-
-function firstNoteAdd() {
-  emptyNotesContainer.style.display = "none";
-  addNoteContainer.style.display = "flex";
-}
-
-function showNewNoteContainer() {
-  toggleVisibility("add-new-note-container", "add-note-button", true);
-}
+// main functions
 
 function renderNotesList() {
   notesList.innerHTML = "";
@@ -60,7 +53,7 @@ function renderNotesList() {
               <button class="note-action-button">
                 <img class="action-button-icon" src="./src/assets/EditIcon.png" alt="Edit"/>
               </button>
-              <button class="note-action-button" onClick="handleNoteDelete('${listItem.id}')">
+              <button id="note-delete-button" class="note-action-button" onClick="handleNoteDelete('${listItem.id}')">
                 <img class="action-button-icon" src="./src/assets/DeleteIcon.png" alt="Delete"/>
               </button>
             </div>
@@ -84,25 +77,22 @@ function addNote() {
 
   notes.push(newNote);
   notesLengthChecker(notes);
-  hideNewNoteContainer(notes);
+  newNoteContainerDisplay(notes, false);
   renderNotesList();
   resetNewNoteInput();
   updateNoNotesDisplay(notes);
 }
 
-
-
+//TODO: embed methods: delete and edit into generated html <li> element
 function handleNoteDelete(id: string) {
   notes = deleteNote(id, notes);
 
   notesLengthChecker(notes);
-  hideNewNoteContainer(notes);
+  newNoteContainerDisplay(notes, false);
   renderNotesList();
 }
 
 function filterNotes() {
-  const searchPhrase = getElementById("search-input") as HTMLInputElement;
-
   for (let i = 0; i < notesLiArray.length; i++) {
     const noteTitleElement =
       notesLiArray[i].getElementsByClassName("note-title")[0];
@@ -112,3 +102,18 @@ function filterNotes() {
   }
 }
 // ------------
+
+// event listeners
+
+addFirstNoteButton.addEventListener("click", () => firstNoteAdd());
+showNewNoteContainerButton.addEventListener("click", () =>
+  newNoteContainerDisplay(notes, true)
+);
+hideNewNoteContainerButton.addEventListener("click", () =>
+  newNoteContainerDisplay(notes, false)
+);
+addNewNoteButton.addEventListener("click", () => addNote());
+searchPhrase.addEventListener("keyup", () => filterNotes());
+// noteDeleteButton.addEventListener("click", ()=> handleNoteDelete("1"))
+
+// --------------

@@ -1,5 +1,5 @@
-import { newNotesContainer, noNotesContainer, } from "../../pageContent/elements.getters.js";
+import { emptyNotesContainer, showNewNoteContainerButton, } from "../../pageContent/elements.getters.js";
 export function updateNoNotesDisplay(notes) {
-    noNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
-    newNotesContainer.style.display = notes.length === 0 ? "none" : "flex";
+    emptyNotesContainer.style.display = notes.length === 0 ? "flex" : "none";
+    showNewNoteContainerButton.style.display = notes.length === 0 ? "none" : "flex";
 }
