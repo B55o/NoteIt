@@ -6,16 +6,13 @@ export const addFirstNoteButton = getElementById("add-first-note");
 export const notesList = getElementById("notes-list");
 export const notesLiArray = notesList.getElementsByTagName("li");
 // new note inputs
-export const title = getElementById("new-note-title");
-export const description = getElementById("new-note-description");
+export const noteTitleInput = getElementById("new-note-title");
+export const noteDescriptionInput = getElementById("new-note-description");
 // new note container display actions
 export const hideNewNoteContainerButton = getElementById("hide-new-note-container");
 export const showNewNoteContainerButton = getElementById("show-new-note-container-button");
 // add note actions & display
 export const addNewNoteButton = getElementById("add-new-note");
 export const addNoteContainer = getElementById("add-new-note-container");
-// note action buttons
-// export const noteDeleteButton = getElementById("note-delete-button")
-// export const noteEditButton = getElementById("")
 // search notes input
 export const searchPhrase = getElementById("search-input");

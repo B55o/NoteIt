@@ -137,7 +137,8 @@ textarea {
 
 .note {
   width: 40%;
-  height: 112px;
+  min-height: 112px;
+  height: auto;
   padding: 15px;
   border: 0;
   border-radius: 12px;
@@ -145,6 +146,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  gap: 10px;
 }
 
 .note-main {
@@ -154,7 +156,7 @@ textarea {
 }
 
 .note-button-bar {
-  width: 10%;
+  width: auto;
   display: flex;
   justify-content: space-between;
 }
@@ -280,7 +282,7 @@ textarea {
 }
 
 .add-note-toggle {
-    width: 100%;
+  width: 100%;
 }
 
 .secondary-button {
@@ -339,15 +341,14 @@ textarea {
   font-size: 16px;
 }
 .new-note-bottom-action {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .new-note-add {
-    width: 15%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 
-  }
+.new-note-add {
+  width: 15%;
+}
 
 .empty-notes-list-container {
   display: flex;
@@ -400,4 +401,8 @@ textarea {
 
 .add-note-icon {
   height: 24px;
+}
+
+.non-visible {
+  display: none;
 }
