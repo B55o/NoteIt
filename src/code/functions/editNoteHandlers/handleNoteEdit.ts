@@ -5,7 +5,7 @@ import { handleNoteSave } from "./handleNoteSave.js";
 export function handleNoteEdit(note: INote, listItem: HTMLElement) {
   let currentTitle: string = note.title;
   let currentDescription: string = note.description;
-  const sanitizedId: string = sanitizeId(note.id)
+  const sanitizedId: string = sanitizeId(note.id);
 
   // Getters from edited note
   const titleElement = listItem.querySelector(".note-title") as HTMLSpanElement;
